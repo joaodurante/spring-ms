@@ -8,7 +8,7 @@ spring:
       uri: ${MONGO_DB_URI:mongodb://admin:admin@localhost:27017}
 
   kafka:
-    bootstrap-server: ${KAFKA_BROKER:localhost:9092}
+    bootstrap-servers: ${KAFKA_BROKER:localhost:9092}
     topic:
       start-saga: start-saga
       notify-ending: notify-ending

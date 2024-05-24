@@ -88,6 +88,86 @@ services:
     depends_on:
       - "kafka"
 
+  order-service:
+    container_name: order-service
+    build: "./order-service"
+    depends_on:
+      - kafka
+      - order-db
+    environment:
+      KAFKA_BROKER: kafka:29092
+      MONGO_DB_URI: mongodb://admin:admin@order-db:27017
+    networks:
+      - orchestrator-saga
+    ports:
+      - "3000:3000"
+
+  orchestrator-service:
+    container_name: orchestrator-service
+    build: "./orchestrator-service"
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_BROKER: kafka:29092
+    networks:
+      - orchestrator-saga
+    ports:
+      - "8080:8080"
+
+  product-validation-service:
+    container_name: product-validation-service
+    build: "./product-validation-service"
+    depends_on:
+      - kafka
+      - product-db
+    environment:
+      KAFKA_BROKER: kafka:29092
+      DB_HOST: product-db
+      DB_PORT: 5432
+      DB_NAME: product-db
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    networks:
+      - orchestrator-saga
+    ports:
+      - "8090:8090"
+
+  payment-service:
+    container_name: payment-service
+    build: "./payment-service"
+    depends_on:
+      - kafka
+      - payment-db
+    environment:
+      KAFKA_BROKER: kafka:29092
+      DB_HOST: payment-db
+      DB_PORT: 5432
+      DB_NAME: payment-db
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    networks:
+      - orchestrator-saga
+    ports:
+      - "8091:8091"
+
+  inventory-service:
+    container_name: inventory-service
+    build: "./inventory-service"
+    depends_on:
+      - kafka
+      - inventory-db
+    environment:
+      KAFKA_BROKER: kafka:29092
+      DB_HOST: inventory-db
+      DB_PORT: 5432
+      DB_NAME: inventory-db
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    networks:
+      - orchestrator-saga
+    ports:
+      - "8092:8092"
+
 networks:
   orchestrator-saga:
     driver: bridge
