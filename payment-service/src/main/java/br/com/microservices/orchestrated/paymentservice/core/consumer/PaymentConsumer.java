@@ -17,7 +17,7 @@ public class PaymentConsumer {
             topics = "${spring.kafka.topic.payment-success}"
     )
     public void consumeSuccessEvent(String payload) {
-        log.info("Received event from payment-success topic:: {}", payload);
+        log.info("Received event from payment-success topic: {}", payload);
         System.out.println("Received event from payment-success");
         var event = jsonUtil.toEvent(payload);
         log.info(event.toString());
