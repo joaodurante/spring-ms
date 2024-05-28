@@ -15,12 +15,12 @@ public class KafkaProducer {
     @Value("${spring.kafka.topic.start-saga}")
     private String topic;
 
-    public void sendTemplate(String payload) {
+    public void sendEvent(String payload) {
         try {
             kafkaTemplate.send(topic, payload);
             log.info("{} sent to topic {}", payload, topic);
         } catch (Exception e) {
-            log.error("Failed to send {} to topic {}", payload, topic);
+            log.error("Failed to send {} to topic {}", payload, topic, e.getMessage());
         }
     }
 }

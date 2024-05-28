@@ -15,7 +15,7 @@ public class KafkaProducer {
     @Value("${spring.kafka.topic.orchestrator}")
     private String topic;
 
-    public void sendTemplate(String payload) {
+    public void sendEvent(String payload) {
         try {
             kafkaTemplate.send(topic, payload);
             log.info("{} sent to topic {}", payload, topic);

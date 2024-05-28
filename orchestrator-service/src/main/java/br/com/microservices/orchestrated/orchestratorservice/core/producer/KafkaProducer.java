@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class KafkaProducer {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
-    public void sendTemplate(String topic, String payload) {
+    public void sendEvent(String topic, String payload) {
         try {
             kafkaTemplate.send(topic, payload);
             log.info("{} sent to topic {}", payload, topic);
