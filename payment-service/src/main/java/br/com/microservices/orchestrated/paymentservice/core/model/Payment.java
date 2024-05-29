@@ -31,7 +31,7 @@ public class Payment {
     private EPaymentStatus status;
 
     @Column(nullable = false)
-    private double totalItems;
+    private int totalItems;
 
     @Column(nullable = false)
     private double totalAmount;

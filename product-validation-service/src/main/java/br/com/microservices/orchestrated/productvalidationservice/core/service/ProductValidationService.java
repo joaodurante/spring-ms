@@ -89,6 +89,7 @@ public class ProductValidationService {
     private void addToHistory(Event event, String message) {
         var history = History
                 .builder()
+                .source(CURRENT_SOURCE)
                 .status(event.getStatus())
                 .message(message)
                 .createdAt(LocalDateTime.now())
