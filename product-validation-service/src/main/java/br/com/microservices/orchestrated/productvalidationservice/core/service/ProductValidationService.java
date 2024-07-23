@@ -114,6 +114,7 @@ public class ProductValidationService {
         updateValidationToFail(event);
         event.setSource(CURRENT_SOURCE);
         event.setStatus(ESagaStatus.FAIL);
+        addToHistory(event, "Rollback executed on product validation!");
         producer.sendEvent(jsonUtil.toJson(event));
     }
 
